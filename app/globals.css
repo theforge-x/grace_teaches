@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+:root {
+  /* Warm parchment palette — an editorial, devotional-magazine feel */
+  --paper: #fbf6ec;
+  --paper-raised: #f4ecda;
+  --paper-deep: #ece0c6;
+  --ink: #26211a;
+  --ink-soft: #5c5445;
+  --ink-faint: #8a8170;
+  --rust: #b3492a;
+  --rust-deep: #8c3820;
+  --gold: #af8433;
+  --gold-soft: #ddc78e;
+  --line: #e2d5b7;
+  --line-strong: #cdbb90;
+  --success: #4c6a4f;
+  --danger: #a13b2e;
+
+  --font-display: var(--font-playfair);
+  --font-secondary: var(--font-playwrite);
+  --font-body: var(--font-public-sans);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-paper-deep: var(--paper-deep);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-rust: var(--rust);
+  --color-rust-deep: var(--rust-deep);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  background-image:
+    radial-gradient(circle at 8% 0%, rgba(179, 73, 42, 0.05), transparent 45%),
+    radial-gradient(circle at 100% 12%, rgba(175, 132, 51, 0.06), transparent 40%);
+}
+
+/* Subtle paper grain, layered under content */
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+::selection {
+  background-color: var(--rust);
+  color: var(--paper);
+}
+
+/* Long-form article & devotional content */
+.prose-grace {
+  font-family: var(--font-body);
+  color: var(--ink);
+  font-size: 1.125rem;
+  line-height: 1.8;
+}
+
+.prose-grace > * + * {
+  margin-top: 1.4em;
+}
+
+.prose-grace h1,
+.prose-grace h2,
+.prose-grace h3 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  line-height: 1.2;
+  margin-top: 1.8em;
+}
+
+.prose-grace h2 {
+  font-size: 1.6em;
+  font-weight: 600;
+}
+
+.prose-grace h3 {
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.prose-grace p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  float: left;
+  font-size: 3.4em;
+  line-height: 0.85;
+  padding-right: 0.09em;
+  padding-top: 0.05em;
+  color: var(--rust);
+  font-weight: 600;
+}
+
+.prose-grace a {
+  color: var(--rust);
+  text-decoration: underline;
+  text-decoration-color: var(--gold-soft);
+  text-underline-offset: 3px;
+}
+
+.prose-grace a:hover {
+  color: var(--rust-deep);
+}
+
+.prose-grace blockquote {
+  border-left: 3px solid var(--rust);
+  padding-left: 1.2em;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.2em;
+  color: var(--ink-soft);
+}
+
+.prose-grace ul,
+.prose-grace ol {
+  padding-left: 1.4em;
+}
+
+.prose-grace ul {
+  list-style: disc;
+}
+
+.prose-grace ol {
+  list-style: decimal;
+}
+
+.prose-grace code {
+  background: var(--paper-raised);
+  padding: 0.15em 0.4em;
+  border-radius: 0.3em;
+  font-size: 0.9em;
+}
+
+.prose-grace hr {
+  border: none;
+  border-top: 1px solid var(--line-strong);
+  margin: 2.5em 0;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rise {
+  animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
