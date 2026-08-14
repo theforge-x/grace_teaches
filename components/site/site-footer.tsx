@@ -54,7 +54,7 @@ export function SiteFooter() {
       </Container>
       <Container className="border-t border-line/70 py-6">
         <p className="text-xs text-ink-faint">
-          © {year} Grace Teaches. Scripture quotations are the writers&apos; own paraphrase unless
+          © {year} <Wordmark className="text-sm"/>. Scripture quotations are the writers&apos; own paraphrase unless
           noted.
         </p>
       </Container>

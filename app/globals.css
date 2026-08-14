@@ -8,8 +8,8 @@
   --ink: #26211a;
   --ink-soft: #5c5445;
   --ink-faint: #8a8170;
-  --rust: #b3492a;
-  --rust-deep: #8c3820;
+  --rust: #cb3534;
+  --rust-deep: #97011a;
   --gold: #af8433;
   --gold-soft: #ddc78e;
   --line: #e2d5b7;
@@ -17,9 +17,23 @@
   --success: #4c6a4f;
   --danger: #a13b2e;
 
-  --font-display: var(--font-playfair);
-  --font-secondary: var(--font-playwrite);
-  --font-body: var(--font-public-sans);
+  /* --paper: #fffff0;#fbf6ec; /
+  --paper-raised: #fefbf3; /* #f4ecda; /
+  --paper-deep: #ece0c6;
+  --ink: #071739; /* #26211a; /
+  --ink-soft: #8ca3a5; /* #5c5445; /
+  --ink-faint: #b7c9cc; /* #8a8170; /
+  --rust: #cb3534; /* #b3492a;
+  --rust-deep: #97011a; /* #8c3820; /
+  --gold-soft: #ddc78e;
+  --line: #e2d5b7;
+  --line-strong: #f4ca5c; /* #cdbb90;/
+  --success: #4c6a4f;
+  --danger: #a13b2e; */
+
+  --font-display: var(--font-chubbo);
+  --font-secondary: var(--font-zodiak);
+  --font-body: var(--font-satoshi);
 }
 
 @theme inline {
@@ -38,6 +52,7 @@
   --color-success: var(--success);
   --color-danger: var(--danger);
 
+  --font-secondary: var(--font-secondary);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
 }
@@ -72,6 +87,10 @@ body {
 
 .font-display {
   font-family: var(--font-display);
+}
+
+.font-secondary {
+    font-family: var(--font-secondary);
 }
 
 ::selection {
@@ -135,7 +154,7 @@ body {
 .prose-grace blockquote {
   border-left: 3px solid var(--rust);
   padding-left: 1.2em;
-  font-family: var(--font-display);
+  font-family: var(--font-secondary);
   font-style: italic;
   font-size: 1.2em;
   color: var(--ink-soft);
