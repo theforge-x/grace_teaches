@@ -3,12 +3,12 @@ import { cn } from "@/lib/utils";
 
 export function Wordmark({ className }: { className?: string }) {
   return (
-    <Link href="/" className={cn("group inline-flex items-baseline gap-2 font-display", className)}>
-      <span className="text-2xl font-semibold tracking-tight text-ink transition-colors group-hover:text-rust">
-        Grace
+    <Link href="/" className={cn("group text-2xl inline-flex items-baseline font-display", className)}>
+      <span className="italic tracking-tight text-ink transition-colors group-hover:text-rust">
+        grace
       </span>
-      <span className="relative text-2xl font-semibold italic tracking-tight text-rust">
-        Teaches
+      <span className="relative font-body font-semibold tracking-tight text-rust">
+        teaches
         <svg
           className="absolute -bottom-1 left-0 w-full text-gold-soft"
           viewBox="0 0 100 6"

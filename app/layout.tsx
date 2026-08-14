@@ -2,42 +2,46 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-const playfair = localFont({
-  variable: "--font-playfair",
+const chubbo = localFont({
+  variable: "--font-chubbo",
   display: "swap",
   src: [
     {
-      path: "../assets/fonts/playfair_display/PlayfairDisplay-Variable.ttf",
+      path: "../assets/fonts/chubbo/Chubbo-Variable.ttf",
       style: "normal",
     },
     {
-      path: "../assets/fonts/playfair_display/PlayfairDisplay-Italic-Variable.ttf",
+      path: "../assets/fonts/chubbo/Chubbo-VariableItalic.ttf",
       style: "italic",
     },
   ],
 });
 
-const playwrite = localFont({
-  variable: "--font-playwrite",
+const zodiak = localFont({
+  variable: "--font-zodiak",
   display: "swap",
   src: [
     {
-      path: "../assets/fonts/playwrite_vn/PlaywriteVN-Variable.ttf",
+      path: "../assets/fonts/zodiak/Zodiak-Variable.ttf",
       style: "normal",
+    },
+    {
+      path: "../assets/fonts/zodiak/Zodiak-VariableItalic.ttf",
+      style: "italic",
     },
   ],
 });
 
-const publicSans = localFont({
-  variable: "--font-public-sans",
+const satoshi = localFont({
+  variable: "--font-satoshi",
   display: "swap",
   src: [
     {
-      path: "../assets/fonts/public-sans/PublicSans-Variable.ttf",
+      path: "../assets/fonts/satoshi/Satoshi-Variable.ttf",
       style: "normal",
     },
     {
-      path: "../assets/fonts/public-sans/PublicSans-Italic-Variable.ttf",
+      path: "../assets/fonts/satoshi/Satoshi-VariableItalic.ttf",
       style: "italic",
     },
   ],
@@ -65,7 +69,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${playfair.variable} ${publicSans.variable} ${playwrite.variable} antialiased`}>
+    <html lang="en" className={`${chubbo.variable} ${satoshi.variable} ${zodiak.variable} antialiased`}>
       <body className="relative min-h-screen bg-paper text-ink">
         <div className="paper-grain" aria-hidden="true" />
         <div className="relative z-10">{children}</div>

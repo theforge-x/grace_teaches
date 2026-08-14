@@ -32,8 +32,8 @@ export function AdminShell({
     <div className="flex min-h-screen bg-paper">
       <aside className="flex w-64 shrink-0 flex-col border-r border-line bg-paper-raised/50">
         <div className="border-b border-line px-6 py-6">
-          <Link href="/" className="font-display text-xl font-semibold text-ink">
-            Grace <span className="italic text-rust">Teaches</span>
+          <Link href="/" className="font-display italic text-xl text-ink">
+            grace<span className="font-body font-semibold text-rust">teaches</span>
           </Link>
           <p className="mt-1 text-xs uppercase tracking-wide text-ink-faint">Admin</p>
         </div>

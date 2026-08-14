@@ -1,17 +1,17 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/site/wordmark";
-import { Container } from "@/components/ui/container";
+import { ContainerFluid } from "@/components/ui/container";
 
 const links = [
-  { href: "/blog", label: "Blog" },
-  { href: "/podcast", label: "Podcast" },
-  { href: "/about", label: "About" },
+  { href: "/blog", label: "blog" },
+  { href: "/podcast", label: "podcast" },
+  { href: "/about", label: "about" },
 ];
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-line/70">
-      <Container className="flex items-center justify-between py-6">
+    <header className="border-b border-line/50">
+      <ContainerFluid className="flex items-center justify-between py-6">
         <Wordmark />
         <nav className="flex items-center gap-8">
           {links.map((link) => (
@@ -24,7 +24,7 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-      </Container>
+      </ContainerFluid>
     </header>
   );
 }
