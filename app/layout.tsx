@@ -69,7 +69,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${chubbo.variable} ${satoshi.variable} ${zodiak.variable} antialiased`}>
+    <html
+      lang="en"
+      className={`${chubbo.variable} ${satoshi.variable} ${zodiak.variable} antialiased`}
+    >
       <body className="relative min-h-screen bg-paper text-ink">
         <div className="paper-grain" aria-hidden="true" />
         <div className="relative z-10">{children}</div>

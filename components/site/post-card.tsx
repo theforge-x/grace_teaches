@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { posts } from "@/db/schema";
+import type { getPublishedPosts } from "@/lib/content";
 import { excerptFrom, formatDate } from "@/lib/utils";
 
-type Post = typeof posts.$inferSelect;
+export type PostCardData = Awaited<ReturnType<typeof getPublishedPosts>>[number];
 
-export function PostCard({ post, featured = false }: { post: Post; featured?: boolean }) {
+export function PostCard({ post, featured = false }: { post: PostCardData; featured?: boolean }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
@@ -28,6 +28,12 @@ export function PostCard({ post, featured = false }: { post: Post; featured?: bo
         )}
       </div>
       <div className="p-6">
+        {post.series ? (
+          <p className="mb-2 text-xs font-medium uppercase tracking-wide text-rust">
+            {post.series.title}
+            {post.seriesOrder ? ` · Part ${post.seriesOrder}` : ""}
+          </p>
+        ) : null}
         {post.scripture ? (
           <p className="mb-2 text-xs font-medium uppercase tracking-wide text-gold">
             {post.scripture}
@@ -41,7 +47,10 @@ export function PostCard({ post, featured = false }: { post: Post; featured?: bo
         <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-soft">
           {post.excerpt || excerptFrom(post.content)}
         </p>
-        <p className="mt-4 text-xs text-ink-faint">{formatDate(post.publishedAt)}</p>
+        <p className="mt-4 text-xs text-ink-faint">
+          {post.author?.name ? `${post.author.name} · ` : ""}
+          {formatDate(post.publishedAt)}
+        </p>
       </div>
     </Link>
   );

@@ -90,7 +90,7 @@ body {
 }
 
 .font-secondary {
-    font-family: var(--font-secondary);
+  font-family: var(--font-secondary);
 }
 
 ::selection {

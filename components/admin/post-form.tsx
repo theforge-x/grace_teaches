@@ -6,12 +6,19 @@ import type { posts } from "@/db/schema";
 
 type Post = typeof posts.$inferSelect;
 
+type AuthorOption = { id: string; name: string };
+type SeriesOption = { id: string; title: string };
+
 export function PostForm({
   post,
   action,
+  authors,
+  seriesOptions = [],
 }: {
   post?: Post;
   action: (formData: FormData) => Promise<void>;
+  authors: AuthorOption[];
+  seriesOptions?: SeriesOption[];
 }) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -60,6 +67,28 @@ export function PostForm({
         </div>
 
         <div>
+          <label htmlFor="authorId" className="mb-1.5 block text-sm font-medium text-ink">
+            Author
+          </label>
+          <select
+            id="authorId"
+            name="authorId"
+            required
+            defaultValue={post?.authorId ?? ""}
+            className="w-full rounded-lg border border-line-strong bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-rust"
+          >
+            <option value="" disabled>
+              Select an author…
+            </option>
+            {authors.map((author) => (
+              <option key={author.id} value={author.id}>
+                {author.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
           <label htmlFor="scripture" className="mb-1.5 block text-sm font-medium text-ink">
             Scripture reference <span className="text-ink-faint">(optional)</span>
           </label>
@@ -69,6 +98,40 @@ export function PostForm({
             defaultValue={post?.scripture ?? ""}
             className="w-full rounded-lg border border-line-strong bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-rust"
             placeholder="2 Corinthians 5:7"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="seriesId" className="mb-1.5 block text-sm font-medium text-ink">
+            Series <span className="text-ink-faint">(optional)</span>
+          </label>
+          <select
+            id="seriesId"
+            name="seriesId"
+            defaultValue={post?.seriesId ?? ""}
+            className="w-full rounded-lg border border-line-strong bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-rust"
+          >
+            <option value="">None</option>
+            {seriesOptions.map((option) => (
+              <option key={option.id} value={option.id}>
+                {option.title}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="seriesOrder" className="mb-1.5 block text-sm font-medium text-ink">
+            Part number in series <span className="text-ink-faint">(optional)</span>
+          </label>
+          <input
+            id="seriesOrder"
+            name="seriesOrder"
+            type="number"
+            min={1}
+            defaultValue={post?.seriesOrder ?? ""}
+            className="w-full rounded-lg border border-line-strong bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-rust"
+            placeholder="1"
           />
         </div>
 

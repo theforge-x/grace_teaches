@@ -1,6 +1,6 @@
 "use client";
 
-import { LayoutDashboard, LogOut, Mic, Newspaper } from "lucide-react";
+import { LayoutDashboard, Library, LogOut, Mic, Newspaper } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth/auth-client";
@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 const links = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { href: "/admin/posts", label: "Blog Posts", icon: Newspaper },
+  { href: "/admin/series", label: "Series", icon: Library },
   { href: "/admin/episodes", label: "Podcast Episodes", icon: Mic },
 ];
 

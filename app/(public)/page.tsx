@@ -5,9 +5,7 @@ import { LinkButton } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { getLatestPublished } from "@/lib/content";
 
-const days = [
-  'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
-]
+const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 export default async function HomePage() {
   const { latestPosts, latestEpisodes } = await getLatestPublished(3);
@@ -20,7 +18,8 @@ export default async function HomePage() {
             <span className="h-px w-8 bg-gold" /> Bible teaching, unhurried
           </p>
           <h1 className="max-w-3xl font-display text-5xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-6xl">
-            Faith that holds up on an <span className="italic text-rust">ordinary</span> {days[new Date().getDay()]}.
+            Faith that holds up on an <span className="italic text-rust">ordinary</span>{" "}
+            {days[new Date().getDay()]}.
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
             Grace Teaches is a blog and podcast for people who want to know Scripture more deeply

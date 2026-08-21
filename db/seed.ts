@@ -2,7 +2,7 @@ import "dotenv/config";
 import { eq } from "drizzle-orm";
 import { auth } from "@/lib/auth/auth";
 import { db } from "./index";
-import { episodes, posts, user } from "./schema";
+import { episodes, posts, series, user } from "./schema";
 
 async function main() {
   const name = process.env.SEED_ADMIN_NAME;
@@ -33,14 +33,36 @@ async function main() {
   await db.update(user).set({ role: "admin" }).where(eq(user.id, adminId));
   console.log(`Set role=admin for ${email}.`);
 
+  let seriesId: string | null = null;
+  const existingSeries = await db.query.series.findFirst({
+    where: eq(series.slug, "foundations-of-faith"),
+  });
+
+  if (existingSeries) {
+    seriesId = existingSeries.id;
+  } else {
+    const inserted = await db
+      .insert(series)
+      .values({
+        title: "Foundations of Faith",
+        slug: "foundations-of-faith",
+        description:
+          "A short series on the essentials of trusting God — what faith is, how it grows, and how it changes the way we live.",
+      })
+      .returning({ id: series.id });
+    seriesId = inserted[0].id;
+    console.log("Seeded a sample series.");
+  }
+
   const existingPost = await db.query.posts.findFirst();
   if (!existingPost) {
-    await db.insert(posts).values({
-      title: "Walking by Faith, Not by Sight",
-      slug: "walking-by-faith-not-by-sight",
-      excerpt:
-        "What it really means to trust God when the road ahead is unclear, and how Scripture equips us for the walk.",
-      content: `# Walking by Faith, Not by Sight
+    await db.insert(posts).values([
+      {
+        title: "Walking by Faith, Not by Sight",
+        slug: "walking-by-faith-not-by-sight",
+        excerpt:
+          "What it really means to trust God when the road ahead is unclear, and how Scripture equips us for the walk.",
+        content: `# Walking by Faith, Not by Sight
 
 "For we walk by faith, not by sight." — 2 Corinthians 5:7
 
@@ -53,12 +75,40 @@ Faith does not require the absence of uncertainty. It requires the presence of t
 ## A Practical Next Step
 
 This week, name one situation where you're tempted to lead with sight instead of faith. Bring it to God in prayer and ask Him to grow your trust in that specific place.`,
-      scripture: "2 Corinthians 5:7",
-      status: "published",
-      publishedAt: new Date(),
-      authorId: adminId,
-    });
-    console.log("Seeded a sample blog post.");
+        scripture: "2 Corinthians 5:7",
+        status: "published",
+        publishedAt: new Date(),
+        authorId: adminId,
+        seriesId,
+        seriesOrder: 1,
+      },
+      {
+        title: "How Faith Grows in the Waiting",
+        slug: "how-faith-grows-in-the-waiting",
+        excerpt:
+          "The seasons where nothing seems to happen are often the seasons where faith is quietly taking root.",
+        content: `# How Faith Grows in the Waiting
+
+"Wait for the LORD; be strong, and let your heart take courage." — Psalm 27:14
+
+Waiting is not wasted time. Between the promise and its fulfilment, God is doing a deeper work in us than the one we asked for.
+
+## The Hidden Work
+
+David was anointed king years before he wore the crown. In the shepherd fields and the caves, God was building the man who could carry the throne.
+
+## A Practical Next Step
+
+Identify one prayer you've stopped praying because the answer felt slow. Pick it back up this week.`,
+        scripture: "Psalm 27:14",
+        status: "published",
+        publishedAt: new Date(),
+        authorId: adminId,
+        seriesId,
+        seriesOrder: 2,
+      },
+    ]);
+    console.log("Seeded sample blog posts.");
   }
 
   const existingEpisode = await db.query.episodes.findFirst();
