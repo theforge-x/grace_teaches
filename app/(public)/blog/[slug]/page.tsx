@@ -60,10 +60,10 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
         </Link>
 
         {post.series ? (
-          <div className="mt-8 rounded-xl border border-line bg-paper-raised/50 px-5 py-4">
+          <div className="card mt-8 px-5 py-4">
             <Link
               href={`/blog/series/${post.series.slug}`}
-              className="flex items-center gap-2 text-sm font-medium text-rust hover:text-rust-deep"
+              className="flex items-center gap-2 text-sm font-medium text-rust hover:text-rust-strong"
             >
               <Library className="h-4 w-4" strokeWidth={1.75} />
               {partNumber
@@ -103,7 +103,7 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
             {previous ? (
               <Link
                 href={`/blog/${previous.slug}`}
-                className="group rounded-xl border border-line bg-paper-raised/40 p-5 transition-colors hover:border-rust/40"
+                className="card group p-5 transition-colors hover:border-rust/40 hover:shadow-lift"
               >
                 <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-ink-faint">
                   <ArrowLeft className="h-3 w-3" /> Previous in series
@@ -118,7 +118,7 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
             {next ? (
               <Link
                 href={`/blog/${next.slug}`}
-                className="group rounded-xl border border-line bg-paper-raised/40 p-5 text-right transition-colors hover:border-rust/40"
+                className="card group p-5 text-right transition-colors hover:border-rust/40 hover:shadow-lift"
               >
                 <p className="flex items-center justify-end gap-1.5 text-xs font-medium uppercase tracking-wide text-ink-faint">
                   Next in series <ArrowRight className="h-3 w-3" />

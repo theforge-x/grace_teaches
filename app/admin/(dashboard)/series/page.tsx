@@ -36,7 +36,7 @@ export default async function AdminSeriesPage() {
         </LinkButton>
       </div>
 
-      <div className="mt-8 divide-y divide-line rounded-2xl border border-line bg-paper-raised/40">
+      <div className="mt-8 divide-y divide-line card">
         {allSeries.length === 0 ? (
           <p className="p-8 text-center text-sm text-ink-soft">
             No series yet. Create your first one.

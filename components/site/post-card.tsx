@@ -9,7 +9,7 @@ export function PostCard({ post, featured = false }: { post: PostCardData; featu
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group block overflow-hidden rounded-2xl border border-line bg-paper-raised/50 transition-all duration-300 hover:-translate-y-1 hover:border-rust/40 hover:shadow-lg hover:shadow-rust/5"
+      className="card group block overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-rust/40 hover:shadow-lift"
     >
       <div
         className={`relative overflow-hidden bg-paper-deep ${featured ? "aspect-[16/9]" : "aspect-[4/3]"}`}
@@ -23,7 +23,7 @@ export function PostCard({ post, featured = false }: { post: PostCardData; featu
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
-            <span className="font-display text-4xl italic text-gold-soft">GT</span>
+            <span className="font-display text-4xl italic text-gold-bright">GT</span>
           </div>
         )}
       </div>

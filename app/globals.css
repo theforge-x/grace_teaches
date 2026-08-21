@@ -1,41 +1,84 @@
 @import "tailwindcss";
 
-:root {
-  /* Warm parchment palette — an editorial, devotional-magazine feel */
-  --paper: #fbf6ec;
-  --paper-raised: #f4ecda;
-  --paper-deep: #ece0c6;
-  --ink: #26211a;
-  --ink-soft: #5c5445;
-  --ink-faint: #8a8170;
-  --rust: #cb3534;
-  --rust-deep: #97011a;
-  --gold: #af8433;
-  --gold-soft: #ddc78e;
-  --line: #e2d5b7;
-  --line-strong: #cdbb90;
-  --success: #4c6a4f;
-  --danger: #a13b2e;
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-  /* --paper: #fffff0;#fbf6ec; /
-  --paper-raised: #fefbf3; /* #f4ecda; /
-  --paper-deep: #ece0c6;
-  --ink: #071739; /* #26211a; /
-  --ink-soft: #8ca3a5; /* #5c5445; /
-  --ink-faint: #b7c9cc; /* #8a8170; /
-  --rust: #cb3534; /* #b3492a;
-  --rust-deep: #97011a; /* #8c3820; /
-  --gold-soft: #ddc78e;
-  --line: #e2d5b7;
-  --line-strong: #f4ca5c; /* #cdbb90;/
-  --success: #4c6a4f;
-  --danger: #a13b2e; */
+/* ---------------------------------------------------------------------------
+   Design tokens — "Candlelit parchment"
+   Layer 1: theme-scoped semantics. Light is the default; `[data-theme="dark"]`
+   swaps every token, so components never branch on the theme themselves.
+--------------------------------------------------------------------------- */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
 
-  --font-display: var(--font-chubbo);
-  --font-secondary: var(--font-zodiak);
-  --font-body: var(--font-satoshi);
+  /* Surfaces: page → raised (cards) → deep (wells, placeholders) */
+  --paper: #fdfcf7;
+  --paper-raised: #f6f2e8;
+  --paper-deep: #ebe2cf;
+
+  /* Content hierarchy */
+  --ink: #0d2b24;
+  --ink-soft: #40554d;
+  --ink-faint: #66786f;
+
+  /* Primary accent (rust) + its hover state + readable content on top of it */
+  --rust: #cf4432;
+  --rust-strong: #a93325;
+  --accent-contrast: #fff8f2;
+
+  /* Secondary accent (gold): text-safe tone, bright decorative tone, soft line tone */
+  --gold: #94660e;
+  --gold-bright: #eda93c;
+  --gold-soft: #d9bf85;
+
+  /* Hairlines */
+  --line: #e4dbc4;
+
+  /* Feedback */
+  --success: #35714b;
+  --danger: #bb3730;
+
+  /* Elevation & texture */
+  --elev-rest: 0 1px 2px rgb(13 43 36 / 0.05), 0 2px 10px rgb(13 43 36 / 0.04);
+  --elev-lift: 0 4px 8px -2px rgb(13 43 36 / 0.08), 0 12px 28px -8px rgb(207 68 50 / 0.14);
+  --grain-blend: multiply;
+  --grain-opacity: 0.38;
 }
 
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --paper: #101b17;
+  --paper-raised: #17241f;
+  --paper-deep: #21312a;
+
+  --ink: #edf2ec;
+  --ink-soft: #b3c2b9;
+  --ink-faint: #82948a;
+
+  --rust: #ff8a70;
+  --rust-strong: #ffa48f;
+  --accent-contrast: #26130e;
+
+  --gold: #eebc57;
+  --gold-bright: #f6cd74;
+  --gold-soft: #b39a63;
+
+  --line: #2b3b34;
+
+  --success: #6cb586;
+  --danger: #ef6d67;
+
+  --elev-rest: 0 1px 2px rgb(0 0 0 / 0.45);
+  --elev-lift: 0 6px 16px -6px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(255 255 255 / 0.04);
+  --grain-blend: soft-light;
+  --grain-opacity: 0.16;
+}
+
+/* ---------------------------------------------------------------------------
+   Layer 2: expose tokens to Tailwind utilities
+   (bg-paper, text-ink-soft, shadow-rest, rounded-card, …)
+--------------------------------------------------------------------------- */
 @theme inline {
   --color-paper: var(--paper);
   --color-paper-raised: var(--paper-raised);
@@ -44,58 +87,101 @@
   --color-ink-soft: var(--ink-soft);
   --color-ink-faint: var(--ink-faint);
   --color-rust: var(--rust);
-  --color-rust-deep: var(--rust-deep);
+  --color-rust-strong: var(--rust-strong);
+  --color-accent-contrast: var(--accent-contrast);
   --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
   --color-gold-soft: var(--gold-soft);
   --color-line: var(--line);
-  --color-line-strong: var(--line-strong);
   --color-success: var(--success);
   --color-danger: var(--danger);
 
-  --font-secondary: var(--font-secondary);
-  --font-display: var(--font-display);
-  --font-body: var(--font-body);
+  --radius-card: 1rem;
+  --radius-field: 0.625rem;
+
+  --shadow-rest: var(--elev-rest);
+  --shadow-lift: var(--elev-lift);
+
+  --font-display: var(--font-chubbo);
+  --font-secondary: var(--font-zodiak);
+  --font-body: var(--font-satoshi);
 }
 
-* {
-  border-color: var(--line);
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    transition:
+      background-color 200ms ease,
+      color 200ms ease;
+    background-image:
+      radial-gradient(
+        circle at 8% 0%,
+        color-mix(in oklab, var(--rust) 5%, transparent),
+        transparent 42%
+      ),
+      radial-gradient(
+        circle at 100% 12%,
+        color-mix(in oklab, var(--gold-bright) 6%, transparent),
+        transparent 38%
+      );
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--rust);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--rust);
+    color: var(--accent-contrast);
+  }
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background-color: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-body);
-  background-image:
-    radial-gradient(circle at 8% 0%, rgba(179, 73, 42, 0.05), transparent 45%),
-    radial-gradient(circle at 100% 12%, rgba(175, 132, 51, 0.06), transparent 40%);
-}
-
-/* Subtle paper grain, layered under content */
+/* Subtle paper grain, layered under content; adapts blend per theme */
 .paper-grain {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.5;
-  mix-blend-mode: multiply;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
 }
 
-.font-display {
-  font-family: var(--font-display);
-}
+/* ---------------------------------------------------------------------------
+   Layer 3: shared component primitives
+--------------------------------------------------------------------------- */
+@layer components {
+  .eyebrow {
+    @apply text-xs font-medium tracking-[0.18em] uppercase text-gold;
+  }
 
-.font-secondary {
-  font-family: var(--font-secondary);
-}
+  .card {
+    @apply rounded-card border border-line bg-paper-raised/55 shadow-rest;
+  }
 
-::selection {
-  background-color: var(--rust);
-  color: var(--paper);
+  .field-label {
+    @apply mb-1.5 block text-sm font-medium text-ink;
+  }
+
+  .field-input {
+    @apply w-full rounded-field border border-line bg-paper px-3.5 py-2.5 text-sm text-ink transition-[border-color,box-shadow] outline-none placeholder:text-ink-faint/70 focus:border-rust focus:ring-[3px] focus:ring-rust/15;
+  }
+
+  .field-hint {
+    @apply text-ink-faint;
+  }
 }
 
 /* Long-form article & devotional content */
@@ -148,7 +234,7 @@ body {
 }
 
 .prose-grace a:hover {
-  color: var(--rust-deep);
+  color: var(--rust-strong);
 }
 
 .prose-grace blockquote {
@@ -175,14 +261,40 @@ body {
 
 .prose-grace code {
   background: var(--paper-raised);
+  border: 1px solid var(--line);
   padding: 0.15em 0.4em;
   border-radius: 0.3em;
   font-size: 0.9em;
 }
 
+.prose-grace pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.prose-grace table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+.prose-grace th {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 2px solid var(--gold-soft);
+  padding: 0.5em 0.75em;
+}
+
+.prose-grace td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.5em 0.75em;
+}
+
 .prose-grace hr {
   border: none;
-  border-top: 1px solid var(--line-strong);
+  border-top: 1px solid var(--gold-soft);
   margin: 2.5em 0;
 }
 

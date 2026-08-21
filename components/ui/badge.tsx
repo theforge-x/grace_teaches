@@ -11,9 +11,9 @@ export function Badge({
   className?: string;
 }) {
   const tones = {
-    gold: "bg-gold-soft/40 text-gold border-gold-soft",
+    gold: "bg-gold-bright/15 text-gold border-gold-bright/40",
     rust: "bg-rust/10 text-rust border-rust/30",
-    muted: "bg-paper-raised text-ink-soft border-line-strong",
+    muted: "bg-paper-deep text-ink-soft border-line",
     success: "bg-success/10 text-success border-success/30",
   };
 

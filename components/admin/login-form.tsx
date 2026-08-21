@@ -36,7 +36,7 @@ export function LoginForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
-        <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-ink">
+        <label htmlFor="email" className="field-label">
           Email
         </label>
         <div className="relative">
@@ -48,14 +48,14 @@ export function LoginForm() {
             autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-lg border border-line-strong bg-paper px-10 py-2.5 text-sm text-ink outline-none transition-colors focus:border-rust"
+            className="field-input px-10"
             placeholder="you@graceteaches.org"
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-ink">
+        <label htmlFor="password" className="field-label">
           Password
         </label>
         <div className="relative">
@@ -67,14 +67,14 @@ export function LoginForm() {
             autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-lg border border-line-strong bg-paper px-10 py-2.5 text-sm text-ink outline-none transition-colors focus:border-rust"
+            className="field-input px-10"
             placeholder="••••••••"
           />
         </div>
       </div>
 
       {error ? (
-        <p className="rounded-lg bg-danger/10 px-4 py-2.5 text-sm text-danger">{error}</p>
+        <p className="rounded-field bg-danger/10 px-4 py-2.5 text-sm text-danger">{error}</p>
       ) : null}
 
       <Button type="submit" disabled={loading} className="w-full">

@@ -41,7 +41,7 @@ export default async function BlogSeriesPage(props: PageProps<"/blog/series/[slu
       </Link>
 
       <header className="mt-8 max-w-2xl">
-        <p className="text-xs font-medium uppercase tracking-widest text-gold">Series</p>
+        <p className="eyebrow">Series</p>
         <h1 className="mt-2 font-display text-4xl font-semibold text-ink sm:text-5xl">
           {seriesEntry.title}
         </h1>

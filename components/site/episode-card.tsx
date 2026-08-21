@@ -10,18 +10,18 @@ export function EpisodeCard({ episode }: { episode: Episode }) {
   return (
     <Link
       href={`/podcast/${episode.slug}`}
-      className="group flex gap-5 rounded-2xl border border-line bg-paper-raised/50 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-rust/40 hover:shadow-lg hover:shadow-rust/5"
+      className="card group flex gap-5 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-rust/40 hover:shadow-lift"
     >
       <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-paper-deep">
         {episode.coverImageUrl ? (
           <Image src={episode.coverImageUrl} alt={episode.title} fill className="object-cover" />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
-            <Play className="h-6 w-6 text-gold" strokeWidth={1.5} />
+            <Play className="h-6 w-6 text-gold-bright" strokeWidth={1.5} />
           </div>
         )}
-        <div className="absolute inset-0 flex items-center justify-center bg-ink/0 opacity-0 transition-opacity group-hover:bg-ink/30 group-hover:opacity-100">
-          <Play className="h-6 w-6 fill-paper text-paper" />
+        <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-opacity group-hover:bg-black/40 group-hover:opacity-100">
+          <Play className="h-6 w-6 fill-white text-white" />
         </div>
       </div>
       <div className="flex min-w-0 flex-1 flex-col justify-center">

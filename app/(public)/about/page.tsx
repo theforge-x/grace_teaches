@@ -29,7 +29,7 @@ export default function AboutPage() {
   return (
     <Container className="py-16">
       <header className="max-w-2xl">
-        <p className="text-xs font-medium uppercase tracking-widest text-gold">About</p>
+        <p className="eyebrow">About</p>
         <h1 className="mt-2 font-display text-4xl font-semibold text-ink sm:text-5xl">
           Why Grace Teaches exists
         </h1>
@@ -46,7 +46,7 @@ export default function AboutPage() {
 
       <div className="mt-16 grid gap-8 sm:grid-cols-3">
         {values.map((value) => (
-          <div key={value.title} className="rounded-2xl border border-line bg-paper-raised/50 p-6">
+          <div key={value.title} className="card p-6">
             <value.icon className="h-6 w-6 text-rust" strokeWidth={1.5} />
             <h2 className="mt-4 font-display text-lg font-semibold text-ink">{value.title}</h2>
             <p className="mt-2 text-sm leading-relaxed text-ink-soft">{value.body}</p>

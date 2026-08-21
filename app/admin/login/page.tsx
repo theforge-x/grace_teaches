@@ -25,7 +25,7 @@ export default async function AdminLoginPage() {
           </h1>
           <p className="mt-1 text-sm text-ink-soft">Sign in to the admin dashboard</p>
         </div>
-        <div className="rounded-2xl border border-line bg-paper-raised/50 p-8">
+        <div className="card p-8">
           <Suspense>
             <LoginForm />
           </Suspense>

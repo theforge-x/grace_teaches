@@ -33,7 +33,7 @@ export function SeriesForm({
     <form action={handleSubmit} className="space-y-6">
       <div className="grid gap-6 sm:grid-cols-2">
         <div className="sm:col-span-2">
-          <label htmlFor="title" className="mb-1.5 block text-sm font-medium text-ink">
+          <label htmlFor="title" className="field-label">
             Title
           </label>
           <input
@@ -41,39 +41,39 @@ export function SeriesForm({
             name="title"
             required
             defaultValue={series?.title}
-            className="w-full rounded-lg border border-line-strong bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-rust"
+            className="field-input"
             placeholder="The Sermon on the Mount"
           />
         </div>
 
         <div>
-          <label htmlFor="slug" className="mb-1.5 block text-sm font-medium text-ink">
+          <label htmlFor="slug" className="field-label">
             Slug <span className="text-ink-faint">(optional — generated from title)</span>
           </label>
           <input
             id="slug"
             name="slug"
             defaultValue={series?.slug}
-            className="w-full rounded-lg border border-line-strong bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-rust"
+            className="field-input"
             placeholder="the-sermon-on-the-mount"
           />
         </div>
 
         <div>
-          <label htmlFor="coverImageUrl" className="mb-1.5 block text-sm font-medium text-ink">
+          <label htmlFor="coverImageUrl" className="field-label">
             Cover image URL <span className="text-ink-faint">(optional)</span>
           </label>
           <input
             id="coverImageUrl"
             name="coverImageUrl"
             defaultValue={series?.coverImageUrl ?? ""}
-            className="w-full rounded-lg border border-line-strong bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-rust"
+            className="field-input"
             placeholder="https://…"
           />
         </div>
 
         <div className="sm:col-span-2">
-          <label htmlFor="description" className="mb-1.5 block text-sm font-medium text-ink">
+          <label htmlFor="description" className="field-label">
             Description <span className="text-ink-faint">(shown on the series page)</span>
           </label>
           <textarea
@@ -81,13 +81,13 @@ export function SeriesForm({
             name="description"
             rows={3}
             defaultValue={series?.description ?? ""}
-            className="w-full rounded-lg border border-line-strong bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-rust"
+            className="field-input"
           />
         </div>
       </div>
 
       {error ? (
-        <p className="rounded-lg bg-danger/10 px-4 py-2.5 text-sm text-danger">{error}</p>
+        <p className="rounded-field bg-danger/10 px-4 py-2.5 text-sm text-danger">{error}</p>
       ) : null}
 
       <div className="flex items-center gap-3 border-t border-line pt-6">
