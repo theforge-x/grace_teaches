@@ -25,7 +25,7 @@ export default async function AdminDashboardPage() {
       <p className="mt-1 text-sm text-ink-soft">A quick look at what's live and what's waiting.</p>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
-        <div className="rounded-2xl border border-line bg-paper-raised/50 p-6">
+        <div className="card p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-ink">
               <Newspaper className="h-4 w-4 text-rust" />
@@ -50,7 +50,7 @@ export default async function AdminDashboardPage() {
           </LinkButton>
         </div>
 
-        <div className="rounded-2xl border border-line bg-paper-raised/50 p-6">
+        <div className="card p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-ink">
               <Mic className="h-4 w-4 text-rust" />

@@ -4,6 +4,16 @@ import { user } from "./auth-schema";
 
 export const contentStatusEnum = pgEnum("content_status", ["draft", "published"]);
 
+export const series = pgTable("series", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  title: varchar("title", { length: 200 }).notNull(),
+  slug: varchar("slug", { length: 220 }).notNull().unique(),
+  description: text("description"),
+  coverImageUrl: text("cover_image_url"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
 export const posts = pgTable("posts", {
   id: uuid("id").primaryKey().defaultRandom(),
   title: varchar("title", { length: 200 }).notNull(),
@@ -17,6 +27,8 @@ export const posts = pgTable("posts", {
   authorId: text("author_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
+  seriesId: uuid("series_id").references(() => series.id, { onDelete: "set null" }),
+  seriesOrder: integer("series_order"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
@@ -43,6 +55,11 @@ export const episodes = pgTable("episodes", {
 
 export const postsRelations = relations(posts, ({ one }) => ({
   author: one(user, { fields: [posts.authorId], references: [user.id] }),
+  series: one(series, { fields: [posts.seriesId], references: [series.id] }),
+}));
+
+export const seriesRelations = relations(series, ({ many }) => ({
+  posts: many(posts),
 }));
 
 export const episodesRelations = relations(episodes, ({ one }) => ({

@@ -14,7 +14,7 @@ export default async function PodcastIndexPage() {
   return (
     <Container className="py-16">
       <header className="max-w-2xl">
-        <p className="text-xs font-medium uppercase tracking-widest text-gold">The Podcast</p>
+        <p className="eyebrow">The Podcast</p>
         <h1 className="mt-2 font-display text-4xl font-semibold text-ink sm:text-5xl">
           Conversations rooted in Scripture
         </h1>

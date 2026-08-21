@@ -1,11 +1,11 @@
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PostForm } from "@/components/admin/post-form";
 import { db } from "@/db";
-import { posts } from "@/db/schema";
+import { posts, series, user } from "@/db/schema";
 import { updatePost } from "@/lib/actions/posts";
 
 export const metadata: Metadata = { title: "Edit Post", robots: { index: false } };
@@ -15,6 +15,11 @@ export default async function EditPostPage(props: PageProps<"/admin/posts/[id]">
   const post = await db.query.posts.findFirst({ where: eq(posts.id, id) });
 
   if (!post) notFound();
+
+  const [authors, seriesOptions] = await Promise.all([
+    db.select({ id: user.id, name: user.name }).from(user).orderBy(asc(user.name)),
+    db.select({ id: series.id, title: series.title }).from(series).orderBy(asc(series.title)),
+  ]);
 
   const boundUpdate = updatePost.bind(null, post.id);
 
@@ -28,7 +33,12 @@ export default async function EditPostPage(props: PageProps<"/admin/posts/[id]">
       </Link>
       <h1 className="mt-4 font-display text-3xl font-semibold text-ink">Edit post</h1>
       <div className="mt-8 max-w-3xl">
-        <PostForm post={post} action={boundUpdate} />
+        <PostForm
+          post={post}
+          action={boundUpdate}
+          authors={authors}
+          seriesOptions={seriesOptions}
+        />
       </div>
     </div>
   );

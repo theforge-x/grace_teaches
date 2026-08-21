@@ -1,14 +1,16 @@
 "use client";
 
-import { LayoutDashboard, LogOut, Mic, Newspaper } from "lucide-react";
+import { LayoutDashboard, Library, LogOut, Mic, Newspaper } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { authClient } from "@/lib/auth/auth-client";
 import { cn } from "@/lib/utils";
 
 const links = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { href: "/admin/posts", label: "Blog Posts", icon: Newspaper },
+  { href: "/admin/series", label: "Series", icon: Library },
   { href: "/admin/episodes", label: "Podcast Episodes", icon: Mic },
 ];
 
@@ -58,7 +60,10 @@ export function AdminShell({
           })}
         </nav>
         <div className="border-t border-line px-4 py-4">
-          <p className="truncate px-2 text-xs text-ink-faint">Signed in as {userName}</p>
+          <div className="flex items-center justify-between px-2">
+            <p className="truncate text-xs text-ink-faint">Signed in as {userName}</p>
+            <ThemeToggle className="h-8 w-8" />
+          </div>
           <button
             type="button"
             onClick={handleSignOut}

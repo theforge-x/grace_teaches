@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -67,9 +67,27 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fdfcf7" },
+    { media: "(prefers-color-scheme: dark)", color: "#101b17" },
+  ],
+};
+
+const themeInitScript = `(function(){try{var t=localStorage.getItem("theme");if(t!=="dark"&&t!=="light"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${chubbo.variable} ${satoshi.variable} ${zodiak.variable} antialiased`}>
+    <html
+      lang="en"
+      data-theme="light"
+      suppressHydrationWarning
+      className={`${chubbo.variable} ${satoshi.variable} ${zodiak.variable} antialiased`}
+    >
+      <head>
+        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: static inline bootstrap that applies the stored theme before first paint */}
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="relative min-h-screen bg-paper text-ink">
         <div className="paper-grain" aria-hidden="true" />
         <div className="relative z-10">{children}</div>
